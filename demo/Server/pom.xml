@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--    声明项目描述符遵循哪一个POM模型版本 pom模型版本虽少  但Maven引入了新的特性或者其他模型变更的时候，确保稳定性，必须加。-->
+    <modelVersion>4.0.0</modelVersion>
+
+<!--    公司名称、组织名称、项目开发者，配置时生成路径也是由此生成（包名，如com.XXX）-->
+    <!--    项目通用名称-->
+    <!--    对应项目版本号。-->
+    <!--    打包后的类型。如war、jar、maven-plugin、ejb、pom、ear、par、rar-->
+    <!--    用户描述项目的名称，可选。-->
+    <!--项目描述-->
+    <!--项目地址-->
+    <!--开发人员信息-->
+    <!--许可证信息-->
+    <!--组织信息-->
+    <groupId>com.cloud</groupId>
+    <artifactId>eureka-server</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>eureka-server</name>
+    <description>Demo project for Spring Boot</description>
+<!--    <url></url>-->
+<!--    <developers></developers>-->
+<!--    <licenses></licenses>-->
+<!--    <organization></organization>-->
+
+<!--    引入父级pom文件-->
+<!--    <relativePath>标注了父工程的pom.xml文件的相对位置，文件夹起点是当前的pom.xml所属工程的目录，默认值为…/pom.xml。-->
+<!--    如果该工程是父工程的平级工程(即父工程和子工程的文件夹均在同一个目录下)，则需要显示指出父工程的pom.xml的位置
+示例 <relativePath>../parent/pom.xml</relativePath>   parent为父工程名-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.6.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+<!--    <modules>此标签在父工程的pom.xml中表示子模块的位置，标签内元素为<module>。以当前父工程所在的文件夹为基准-->
+<!--    如果是父工程的子工程，则直接填写其文件夹名即可-->
+<!--    <module>${project B foldername}</module>-->
+<!--    如果是平级工程，则-->
+<!--    <module>../${project B foldername}</module>-->
+
+
+<!--    自定义标签管理（可在其内自定义标签名、值，用法同于el表达式：${标签名}得到其值），常用于集中定义依赖版本号-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+<!--        cloud-server-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+
+<!--        junit test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>2.0.0.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR6</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+<!--    build：全局配置（project build），针对当前项目的所有情况都有效。-->
+<!--    plugins：指定使用的插件。-->
+<!--    <plugin> 插件项-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+<!--仓库镜像配置-->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
+</project>
+        <!--        scope：管理部署（可以使用5个值：-->
+        <!--        * compile，缺省值，适用于所有阶段，会随着项目一起发布。-->
+        <!--        * provided，类似compile，期望JDK、容器或使用者会提供这个依赖。如servlet.jar。-->
+        <!--        * runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。-->
+        <!--        * test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。-->
+        <!--        * system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它。-->
+        <!--        ）。-->
+<!--        dependencies:依赖,jar包管理。-->
+<!--        dependency：具体的依赖项。-->
+<!--        dependencyManagement：依赖,jar包管理。-->
+
+<!--        1）dependencies：自动引入声明在dependencies里的所有依赖，并默认被所有的子项目继承。-->
+<!--        如果项目中不写依赖项，则会从父项目继承（属性全部继承）声明在父项目dependencies里的依赖项-->
+<!--        2）dependencyManagement：只是声明依赖，并不实现引入，因此子项目需要显示的声明需要的依赖。-->
+<!--        如果不在子项目中声明依赖，是不会从父项目中继承的；只有在子项目中写了该依赖项，-->
+<!--        并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取自父pom-->
+<!--        如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。-->
+<!--        dependencyManagement元素中指定的版本号,实现所有子项目使用的依赖项为同一版本-->
+
+<!--        build：全局配置（project build），针对当前项目的所有情况都有效。自定义配置（profile build）针对不同的profile配置。-->
+<!--        defaultGoal：执行build任务时，如果没有指定目标，将使用的默认值。-->
+<!--        finalName：build目标文件的名称，默认情况为${artifactId}-${version}。-->
+<!--        include：指定哪些文件将被匹配，以*作为通配符。-->
+<!--        excludes：指定哪些文件将被忽略。-->
+<!--        resources：用于包含或者排除某些资源文件。-->
+<!--        testResources：定义和resource类似，只不过在test时使用-->
+<!--        directory：build目标文件的存放目录，就是定义resource文件所在的文件夹，默认在${basedir}/target目录。-->

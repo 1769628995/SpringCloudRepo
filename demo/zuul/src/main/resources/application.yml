@@ -1,0 +1,22 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8767
+spring:
+  application:
+    name: service-zuul
+zuul:
+  routes:
+    #路由到微服务调用 但是请求时候/api-a要带全部的请求路径和参数 如http://localhost:8767/api-c/?name=forezp&token=22
+    api-a:
+      path: /api-a/**
+      serviceId: service-ribbon
+    api-b:
+      path: /api-b/**
+      serviceId: service-feign
+      #路由到http请求路径
+    api-c:
+      path: /api-c/**
+      serviceId: http://localhost:8768/hello/friend

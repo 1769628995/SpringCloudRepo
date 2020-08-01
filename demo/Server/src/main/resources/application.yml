@@ -1,0 +1,17 @@
+#启动端口
+server:
+  port: 8761
+
+
+eureka:
+  instance:
+    #主机IP名 用于注册中心地址命名
+    hostname: localhost
+  client:
+    #是否注册到注册中心
+    registerWithEureka: false
+    #是否同步其他server的节点
+    fetchRegistry: false
+    #默认情况下erureka server也是一个eureka client ,必须要指定一个 server
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
